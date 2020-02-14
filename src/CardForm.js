@@ -18,7 +18,7 @@ class CardForm extends PureComponent {
             <div className='card-form'>
                 <input 
                     name='cardNumber'
-                    onChange={this.handleChangeForm}
+                    onChange={(e) => this.props.handleChangeForm('email', e.target.value)}
                     >
                 </input>
                 <button onClick={() =>  { console.log(localStorage.lol)}}>click</button>

@@ -4,7 +4,7 @@ class Step extends PureComponent {
   state = { step: 1 }; 
   render () {
     return(
-      <div className='hui' />
+      <div className='hui' onClick={() => this.props.onClick()}>lol</div>
     )
 
   }
