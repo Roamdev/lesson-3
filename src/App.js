@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import './App.css';
 import CardForm from './CardForm';
 import Step from './Step';
+import PersonalForm from './PersonalForm';
 
 
 class App extends PureComponent{
@@ -24,8 +25,9 @@ class App extends PureComponent{
     this.setState({[key]: value})
   }
 
-  handleClickNextForm() {
-    this.setState({step: this.state.step + 1} )
+  handleClickNextForm = () => {
+    if (this.state.step > 2) return
+    this.setState({step: this.state.step + 1}) 
   }
 
   handleChangeTimeOver = (isTimeOver) => {
@@ -76,9 +78,13 @@ class App extends PureComponent{
   }
 
   renderForm() {
-
+    if (this.state.step === 1) {
+      return <PersonalForm />
+    }
   }
-
+  handleRefresh = () => {
+    this.setState({step: 1})
+  }
   render() {
     const personal = {
       key: 'Personal information',
@@ -103,71 +109,83 @@ class App extends PureComponent{
         </div>
         <div className="form-content"></div>
         <div className="button-panel">
-          <button></button>
+          <button
+            className='button-next'
+            onClick={this.handleClickNextForm}
+            >click to destroy this page</button>
         </div>
         <>
-        {this.state.step === 1 && (
-          <>
-          1
-            <Step
-              isSelected={true}
-              isClickable={false}
-              {...personal}
-            />
-            <Step
-              isSelected={false}
-              isClickable={false}
-              {...cardInf}
-            />
-            <Step
-              isSelected={false}
-              isClickable={false}
-              {...finish}
-            />
-          </>
-        )};
-        {this.state.step === 2 && (
-          <>
-          2
-            <Step
-              isSelected={false}
-              isClickable={true}
-              {...personal}
-            />
-            <Step
-              isSelected={false}
-              isClickable={false}
-              {...cardInf}
-            />
-            <Step
-              isSelected={false}
-              isClickable={false}
-              {...finish}
-            />
-          </>
-        )};
-        {this.state.step === 3 && (
-          <>
-          3
-            <Step
-              isSelected={false}
-              isClickable={true}
-              {...personal}
-            />
-            <Step
-              isSelected={false}
-              isClickable={false}
-              {...cardInf}
-            />
-            <Step
-              isSelected={false}
-              isClickable={false}
-              {...finish}
-            />
-          </>
-        )};
-      </>
-        <CardForm handleChangeForm={this.handleChangeForm}></CardForm>
+          {this.state.step === 1 && (
+            <>1
+              <Step
+                isSelected={true}
+                isClickable={false}
+                {...personal}
+              />
+              <Step
+                isSelected={false}
+                isClickable={false}
+                {...cardInf}
+              />
+              <Step
+                isSelected={false}
+                isClickable={false}
+                {...finish}
+              />
+            </>
+          )}
+          {this.state.step === 2 && (
+            <>
+            2
+              <Step
+                isSelected={false}
+                isClickable={true}
+                {...personal}
+              />
+              <Step
+                isSelected={false}
+                isClickable={false}
+                {...cardInf}
+              />
+              <Step
+                isSelected={false}
+                isClickable={false}
+                {...finish}
+              />
+            </>
+          )}
+          {this.state.step === 3 && (
+            <>
+            3
+              <Step
+                isSelected={false}
+                isClickable={true}
+                {...personal}
+              />
+              <Step
+                isSelected={false}
+                isClickable={false}
+                {...cardInf}
+              />
+              <Step
+                isSelected={false}
+                isClickable={false}
+                {...finish}
+              />
+            </>
+          )}
+        </>
+        <PersonalForm
+          firstName={this.state.firstName}
+          lastName={this.state.lastName}
+          email={this.state.email}
+          onChangeForm={this.handleChangeForm} 
+        />
+        <CardForm
+          cardNumber={this.state.cardNumber}
+          handleChangeForm={this.handleChangeForm}
+        />
+        <button onClick={this.handleRefresh}>refresh page</button>
       </div>
     )
   };
