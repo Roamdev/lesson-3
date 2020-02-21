@@ -79,7 +79,21 @@ class App extends PureComponent{
 
   renderForm() {
     if (this.state.step === 1) {
-      return <PersonalForm />
+      return <PersonalForm 
+        firstName={this.state.firstName}
+        lastName={this.state.lastName}
+        email={this.state.email}
+        onChangeForm={this.handleChangeForm}
+      />
+    }
+    if (this.state.step === 2) {
+      return <CardForm
+        cardNumber={this.state.cardNumber}
+        onChangeForm={this.handleChangeForm}
+      />
+    }
+    if (this.state.step === 3) {
+      return <div className='hui'>POZDRAVLYAU HULE</div>
     }
   }
   handleRefresh = () => {
@@ -114,6 +128,7 @@ class App extends PureComponent{
             onClick={this.handleClickNextForm}
             >click to destroy this page</button>
         </div>
+        {this.renderForm()}
         <>
           {this.state.step === 1 && (
             <>1
@@ -171,20 +186,20 @@ class App extends PureComponent{
                 isSelected={false}
                 isClickable={false}
                 {...finish}
-              />
+              >title</Step>
             </>
           )}
         </>
-        <PersonalForm
+        {/* <PersonalForm
           firstName={this.state.firstName}
           lastName={this.state.lastName}
           email={this.state.email}
           onChangeForm={this.handleChangeForm} 
-        />
-        <CardForm
+        /> */}
+        {/* <CardForm
           cardNumber={this.state.cardNumber}
           handleChangeForm={this.handleChangeForm}
-        />
+        /> */}
         <button onClick={this.handleRefresh}>refresh page</button>
       </div>
     )
